@@ -332,14 +332,6 @@ require('lazy').setup({
     keys = {
       { '<C-T>', ':ToggleTerm direction=float<CR>', desc = 'toggle [T]erminal', mode = 'n' },
       { '<C-T>', [[<Cmd>:ToggleTerm<CR>]], desc = 'toggle [T]erminal', mode = 't' },
-      --   { '<leader>s', group = '[S]earch' },
-      --   { '<leader>sf', require('telescope.builtin').find_files, "[S]
-      -- name = "[S]earch",
-      -- f = { require("telescope.builtin").find_files, "[S]earch [F]iles" },
-      -- h = { require("telescope.builtin").help_tags, "[S]earch [H]elp" },
-      -- w = { require("telescope.builtin").grep_string, "[S]earch current [W]ord" },
-      -- g = { require("telescope.builtin").live_grep, "[S]earch by [G]rep" },
-      -- d = { require("telescope.builtin").diagnostics, "[S]earch [D]iagnostics" },
     },
   },
 
