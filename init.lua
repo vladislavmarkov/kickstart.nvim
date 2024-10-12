@@ -280,7 +280,7 @@ require('lazy').setup({
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
-    event = 'VimEnter', -- Sets the loading event to 'VimEnter'
+    event = 'VeryLazy', -- Sets the loading event to 'VimEnter'
     opts = {
       icons = {
         -- set icon mappings to true if you have a Nerd Font
@@ -910,8 +910,11 @@ require('lazy').setup({
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true, disable = { 'cpp', 'ruby' } },
     },
+    config = function()
+      require('nvim-treesitter.install').compilers = { 'gcc-14', 'g++-14' }
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
@@ -978,6 +981,46 @@ require('lazy').setup({
     },
     config = function()
       require('nvim-tree').setup {}
+    end,
+  },
+
+  {
+    'NoahTheDuke/vim-just',
+    ft = { 'just' },
+  },
+
+  {
+    'jackMort/ChatGPT.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'folke/trouble.nvim', -- optional
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('chatgpt').setup {
+        openai_params = {
+          model = 'gpt-3.5-turbo',
+          frequency_penalty = 0,
+          presence_penalty = 0,
+          max_tokens = 4095,
+          temperature = 0.2,
+          top_p = 0.1,
+          n = 1,
+        },
+      }
+      require('which-key').add {
+        { '<leader>t', group = 'AI' },
+        { '<leader>tj', '<cmd>ChatGPT<cr>', desc = 'Run chatGPT' },
+        { '<leader>tt', '<cmd>ChatGPTEditWithInstruction<cr>', desc = 'edit with instructions', mode = { 'n', 'v' } },
+        { '<leader>to', '<cmd>ChatGPTRun grammar_correction<cr>', desc = 'grammar correction', mode = { 'n', 'v' } },
+        { '<leader>tr', '<cmd>ChatGPTRun core_readability_analysis<cr>', desc = 'code readability analysis', mode = { 'n', 'v' } },
+        { '<leader>ts', '<cmd>ChatGPTRun summarize<cr>', desc = 'summarize', mode = { 'n', 'v' } },
+        { '<leader>td', '<cmd>ChatGPTRun docstring<cr>', desc = 'docstring', mode = { 'n', 'v' } },
+        { '<leader>tf', '<cmd>ChatGPTRun fix_bugs<cr>', desc = 'fix bugs', mode = { 'n', 'v' } },
+        { '<leader>tu', '<cmd>ChatGPTRun add_tests<cr>', desc = 'add tests', mode = { 'n', 'v' } },
+      }
     end,
   },
 }, {
