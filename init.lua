@@ -676,7 +676,18 @@ require('lazy').setup({
       }
     end,
   },
+  {
+    'PatWie/include-guard.nvim',
+    config = function()
+      require('include-guard').setup { copyright_holder = 'Vladyslav Markov', add_copyright = false }
 
+      require('which-key').add {
+      { '<leader>ww', require('include-guard').AddIncludeGuardAndCopyright, desc = 'Add include guard and copyright' },
+      { '<leader>wg', require('include-guard').AddIncludeGuard, desc = 'Add include guard' },
+      { '<leader>wc', require('include-guard').UpdateCopyright, desc = 'Update copyright' },
+      }
+    end,
+  },
   { -- Autoformat
     'stevearc/conform.nvim',
     cmd = { 'ConformInfo' },
@@ -713,6 +724,8 @@ require('lazy').setup({
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
         rust = { 'rustfmt', lsp_format = 'fallback' },
+        html = { 'htmlbeautifier' },
+        json = { 'fixjson' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -1001,7 +1014,7 @@ require('lazy').setup({
     config = function()
       require('chatgpt').setup {
         openai_params = {
-          model = 'gpt-3.5-turbo',
+          model = 'o1-preview',
           frequency_penalty = 0,
           presence_penalty = 0,
           max_tokens = 4095,
